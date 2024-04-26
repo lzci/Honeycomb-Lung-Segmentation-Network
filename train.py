@@ -23,6 +23,7 @@ from models.resnestunet import resnestunet
 from models.resnestunetattention import resnestunetattention
 from models.HS_Unet import HS_Unet
 from inference import IoU,meanIoU,Dice,meanDice,PA,MPA,remove_small_regions
+from Loss import MixedLoss
 
 if __name__ == "__main__":
 
