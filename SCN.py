@@ -1,8 +1,8 @@
 import torch.nn as nn
 import torch
-from models4.md10.p2t import *
-from models4.md10.CPCA import CPCA
-from models4.md10.TMC import TMergeC
+from models.PCN.p2t import *
+from models.PCN.CPCA import CPCA
+from models.PCN.TMC import TMergeC
 
 
 # [-1,512,64,64] [-1,512,64,64]  torch.cat ->  [-1,1024,64,64]
@@ -30,7 +30,7 @@ class UnetBlock(nn.Module):
 
 
 
-class md10(nn.Module):
+class PCN(nn.Module):
     def __init__(self, output_channels=2, input_channels=3, **kwargs):
         super().__init__()
 
@@ -106,7 +106,7 @@ class md10(nn.Module):
 
 # torch.cuda.set_device(1)
 #
-# model = md10().cuda()
+# model = PCN().cuda()
 # from ptflops import get_model_complexity_info
 #
 # flops, params = get_model_complexity_info(model, input_res=(3, 256, 256), as_strings=True,
