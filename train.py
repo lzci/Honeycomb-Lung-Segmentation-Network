@@ -12,17 +12,12 @@ import os
 from BagData import train_dataloader,test_dataloader
 from models.FCN import VGGNet,FCNs,FCN8s,FCN16s,FCN32s
 from models.segnet import SegNet
-from models.md10 import md10
+from models.PCN import PCN
 from models.r2unet import R2U_Net
 from models.attention_unet import AttU_Net
 from models.UNet__ import NestedUNet
 from models.R2AttU_Net import R2AttU_Net
-from models.Res_UNet import res_unet
-from models.resnest_unet import resnest_unet
-from models.resnestunet import resnestunet
-from models.resnestunetattention import resnestunetattention
-from models.HS_Unet import HS_Unet
-from inference import IoU,meanIoU,Dice,meanDice,PA,MPA,remove_small_regions
+from inference import IoU,meanIoU,Dice,pre,remove_small_regions
 from Loss import MixedLoss
 
 if __name__ == "__main__":
@@ -38,7 +33,7 @@ if __name__ == "__main__":
     
     # model = FCNs(pretrained_net=VGGNet(requires_grad=True), n_class=2)
     # model = SegNet()
-    model = md10()
+    model = PCN()
     
 
     if torch.cuda.device_count() > 1:
@@ -50,7 +45,7 @@ if __name__ == "__main__":
     criterion = nn.BCELoss().to(device)                 
     # criterion = MixedLoss().to(device)                 
     optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=momentum)
-    # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)       #学习率调整（LambdaLR;StepLR;MultiStepLR;ExponentialLR）四种调整形式
+    # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)       
     # optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     all_train_iter_loss = []
     all_test_iter_loss = []
