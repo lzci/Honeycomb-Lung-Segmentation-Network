@@ -29,68 +29,6 @@ class UnetBlock(nn.Module):
         return out
 
 
-# class Spartial_Attention(nn.Module):
-#     def __init__(self, kernel_size=5):
-#         super(Spartial_Attention, self).__init__()
-#         assert kernel_size % 2 == 1, "kernel_size = {}".format(kernel_size)
-#         padding = (kernel_size - 1) // 2
-#         self.__layer = nn.Sequential(
-#             # nn.Conv2d(2, 1, kernel_size=kernel_size, padding=padding),
-#             nn.Conv2d(2, 2, kernel_size=3, groups=2, padding=1),
-#             nn.Conv2d(2, 1, kernel_size=3, padding=2, dilation=2),
-#             nn.Sigmoid(),
-#         )
-#
-#     def forward(self, x):
-#         avg_mask = torch.mean(x, dim=1, keepdim=True)
-#         max_mask, _ = torch.max(x, dim=1, keepdim=True)
-#         mask = torch.cat([avg_mask, max_mask], dim=1)
-#         mask = self.__layer(mask)
-#         return mask
-
-
-# class Channel_Attention(nn.Module):
-#     def __init__(self, channel1, channel2, r=16):
-#         super(Channel_Attention, self).__init__()
-#
-#         self.__avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-#         self.__max_pool = nn.AdaptiveMaxPool2d((1, 1))
-#
-#         self.__fc = nn.Sequential(
-#             nn.Conv2d(channel1, channel1 // r, 1, bias=False),
-#             nn.ReLU(),
-#             nn.Conv2d(channel1 // r, channel1, 1, bias=False),
-#         )
-#         self.__sigmoid = nn.Sigmoid()
-#         self.cv1 = nn.Conv2d(channel1, channel2, 1)
-#
-#     def forward(self, x):
-#         # print(x.shape)
-#         y1 = self.__avg_pool(x)
-#         # print(y1.shape)
-#         y1 = self.__fc(y1)
-#         # print(y1.shape)
-#         y2 = self.__max_pool(x)
-#         # print(y2.shape)
-#         y2 = self.__fc(y2)
-#         # print(y2.shape)
-#
-#         y = self.__sigmoid(y1 + y2)
-#         return self.cv1(x * y)
-
-
-# class TMergeC(nn.Module):
-#     def __init__(self,in_channels, sam_kernel=5, s=2, ratio=16):
-#         super(TMergeC, self).__init__()
-#         self.upp2t = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
-#         self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=(1, 1), padding=0)
-#     def forward(self, t, c):
-#         t_out = self.upp2t(t)
-#         out = t_out + c
-#         return out
-
-
-
 
 class md10(nn.Module):
     def __init__(self, output_channels=2, input_channels=3, **kwargs):
@@ -175,5 +113,4 @@ class md10(nn.Module):
 #                                           print_per_layer_stat=False)
 # print('      - Flops:  ' + flops)
 # print('      - Params: ' + params)
-# - Flops: 15.62 GMac
-# - Params: 58.08 M
+
